@@ -1,0 +1,86 @@
+/* Estilos para os gráficos */
+
+.custom-tooltip {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.tooltip-label {
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.time-range-selector {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+  gap: 8px;
+}
+
+.time-range-selector button {
+  background-color: #f0f0f0;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 15px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.time-range-selector button.active {
+  background-color: #4285f4;
+  color: white;
+}
+
+/* Estilos para o novo PerformanceChartCard */
+.performance-card .card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.indicators-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 15px;
+  border-top: 1px solid #f0f0f0;
+  justify-content: center;
+}
+
+.indicator-chip {
+  padding: 6px 12px;
+  border-radius: 16px;
+  border: 1px solid var(--indicator-color, #ccc);
+  color: var(--indicator-color, #333);
+  background-color: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.indicator-chip.active {
+  background-color: var(--indicator-color, #0052FF);
+  color: #fff;
+  border-color: var(--indicator-color, #0052FF);
+}
+
+/* Estilos para o Tooltip do Gráfico */
+.custom-chart-tooltip {
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  font-size: 13px;
+}
+
+.custom-chart-tooltip .tooltip-label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+

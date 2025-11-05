@@ -1,0 +1,157 @@
+/* Estilos personalizados para otimização mobile */
+
+/* Impedir rolagem horizontal e garantir que o conteúdo fique centralizado */
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Container principal com largura máxima para mobile */
+.container {
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+  margin: 0 auto;
+}
+
+/* Cabeçalho fixo para mobile */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background-color: #000;
+  color: white;
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.header-title {
+  font-size: 1rem;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-left: 0.5rem;
+}
+
+.header-date {
+  display: flex;
+  align-items: center;
+  font-size: 0.875rem;
+  color: #9aa0a6;
+  padding: 0.5rem 1rem;
+}
+
+/* Navegação por abas otimizada para mobile */
+.tabs-container {
+  display: flex;
+  width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  border-bottom: 1px solid #e0e0e0;
+  background-color: white;
+}
+
+.tabs-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+.tab {
+  flex: 1;
+  min-width: fit-content;
+  padding: 0.75rem 1rem;
+  text-align: center;
+  font-weight: 500;
+  color: #5f6368;
+  position: relative;
+  white-space: nowrap;
+}
+
+.tab.active {
+  color: #4285F4;
+}
+
+.tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: #4285F4;
+}
+
+.tab-icon {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.25rem;
+}
+
+.tab-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background-color: #e8f0fe;
+  color: #4285F4;
+  font-size: 0.75rem;
+  margin-right: 0.5rem;
+}
+
+/* Cards com design otimizado para mobile */
+.card {
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+  padding: 1rem;
+  width: 100%;
+}
+
+.card-title {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+  color: #202124;
+  display: flex;
+  align-items: center;
+}
+
+/* Conteúdo principal com padding adequado */
+.content {
+  padding: 1rem;
+}
+
+/* Gráficos responsivos */
+.chart-container {
+  width: 100%;
+  height: 200px;
+  margin-bottom: 1rem;
+}
+
+/* Responsividade */
+@media (min-width: 640px) {
+  .container {
+    max-width: 640px;
+    padding: 0 1rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+  }
+}

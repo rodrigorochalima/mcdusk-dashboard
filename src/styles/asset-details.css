@@ -1,0 +1,105 @@
+/* Estilos para o card de detalhes do ativo */
+
+.asset-details-card {
+  margin-bottom: 20px;
+  padding: 15px;
+}
+
+.asset-details-summary {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.asset-details-section {
+  margin-bottom: 25px;
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.fundamentalist-analysis {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.best-indicators, .worst-indicators {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.best-indicators {
+  background-color: rgba(76, 175, 80, 0.1);
+}
+
+.worst-indicators {
+  background-color: rgba(244, 67, 54, 0.1);
+}
+
+.best-indicators h5, .worst-indicators h5 {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.best-indicators ul, .worst-indicators ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.best-indicators li, .worst-indicators li {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.indicator-name {
+  font-weight: 500;
+}
+
+.indicator-value.positive {
+  color: #4CAF50;
+}
+
+.indicator-value.negative {
+  color: #F44336;
+}
+
+.back-button {
+  display: inline-block;
+  margin-bottom: 15px;
+  padding: 8px 16px;
+  background-color: #f0f0f0;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.back-button:hover {
+  background-color: #e0e0e0;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .fundamentalist-analysis {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .best-indicators, .worst-indicators {
+    width: 100%;
+  }
+}

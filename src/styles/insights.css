@@ -1,0 +1,247 @@
+/* Estilos para os componentes de insights */
+
+/* Simulador de Rebalanceamento */
+.rebalance-simulator {
+  padding: 10px 0;
+}
+
+.input-group {
+  margin-bottom: 15px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.input-with-button {
+  display: flex;
+  gap: 10px;
+}
+
+.input-field {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.calculate-button {
+  background-color: #4285f4;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 15px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.calculate-button:hover {
+  background-color: #3367d6;
+}
+
+.arca-suggestion {
+  background-color: #e8f0fe;
+  border-radius: 6px;
+  padding: 15px;
+  margin-top: 15px;
+}
+
+.suggestion-title {
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #1a73e8;
+}
+
+.suggestion-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.suggestion-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.bullet {
+  margin-right: 5px;
+  color: #1a73e8;
+}
+
+.percentage {
+  font-weight: 500;
+  margin-right: 5px;
+}
+
+.description {
+  color: #666;
+}
+
+.asset-recommendations {
+  list-style-type: none;
+  padding-left: 20px;
+  margin: 5px 0 10px;
+  width: 100%;
+}
+
+.asset-recommendation {
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  margin-bottom: 5px;
+}
+
+.asset-symbol {
+  font-weight: 500;
+}
+
+.asset-score {
+  color: #666;
+}
+
+/* Calculadora Bola de Neve */
+.snowball-calculator {
+  padding: 10px 0;
+}
+
+.preset-buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.preset-button {
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.preset-button:hover {
+  background-color: #e0e0e0;
+}
+
+.preset-button.active {
+  background-color: #4285f4;
+  color: white;
+  border-color: #4285f4;
+}
+
+.snowball-results {
+  margin-top: 15px;
+}
+
+.results-header {
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+
+.results-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.result-item {
+  background-color: #f5f5f5;
+  border-radius: 6px;
+  padding: 15px;
+}
+
+.result-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.result-symbol {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.result-price {
+  color: #666;
+}
+
+.result-details {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.result-details li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+/* Gráfico de Performance */
+.performance-chart {
+  margin-top: 15px;
+  height: 300px;
+}
+
+.custom-tooltip {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.tooltip-label {
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.tooltip-value {
+  color: #666;
+}
+
+.card-title-action {
+  margin-left: auto;
+  font-size: 12px;
+  color: #666;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+  .input-with-button {
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .preset-buttons {
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  .preset-button {
+    flex: 1;
+    min-width: 45%;
+    text-align: center;
+  }
+  
+  .result-header {
+    flex-direction: column;
+  }
+  
+  .result-price {
+    margin-top: 5px;
+  }
+}

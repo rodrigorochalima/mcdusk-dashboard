@@ -1,0 +1,311 @@
+/* Estilos para os indicadores econômicos - Versão completamente refeita */
+
+/* Seção de performance */
+.performance-section {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* Card separado para indicadores */
+.indicators-card {
+  margin-top: 0 !important; /* Removido o margin-top para usar o gap da seção */
+  border-top: 3px solid #4285f4 !important;
+  background-color: #f8f9fa !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+}
+
+.indicators-card .card-header {
+  background-color: #f0f4ff !important;
+  padding: 15px 20px !important;
+  border-bottom: 1px solid #e0e6ff !important;
+}
+
+.indicators-card .card-header h2 {
+  color: #4285f4 !important;
+  font-weight: 600 !important;
+  margin: 0 !important;
+  font-size: 18px !important;
+}
+
+.indicators-card .card-content {
+  padding: 20px !important;
+}
+
+/* Card de performance */
+.performance-card {
+  margin-bottom: 0 !important; /* Removido o margin-bottom para usar o gap da seção */
+  border-top: 3px solid #34a853 !important;
+  background-color: #f8f9fa !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+}
+
+.performance-card .card-header {
+  background-color: #f0fff4 !important;
+  padding: 15px 20px !important;
+  border-bottom: 1px solid #e0ffe6 !important;
+}
+
+.performance-card .card-header h2 {
+  color: #34a853 !important;
+  font-weight: 600 !important;
+  margin: 0 !important;
+  font-size: 18px !important;
+}
+
+.performance-card .card-content {
+  padding: 20px !important;
+}
+
+/* Contêiner do gráfico */
+.chart-container-wrapper {
+  background-color: #fff !important;
+  border-radius: 8px !important;
+  padding: 15px !important;
+  margin: 20px 0 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
+  position: relative !important;
+}
+
+.chart-container {
+  height: 300px !important;
+  position: relative !important;
+  z-index: 2 !important;
+  margin-bottom: 30px !important; /* Espaço para as datas no eixo X */
+}
+
+/* Controles do gráfico */
+.chart-controls {
+  display: flex !important;
+  justify-content: flex-end !important;
+  margin-top: 10px !important;
+  position: absolute !important;
+  top: 10px !important;
+  right: 15px !important;
+  z-index: 10 !important;
+}
+
+.variation-toggle {
+  background-color: #f0f0f0 !important;
+  border: none !important;
+  border-radius: 20px !important;
+  padding: 8px 16px !important;
+  font-size: 14px !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  color: #555 !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+.variation-toggle.active {
+  background-color: #4285f4 !important;
+  color: white !important;
+}
+
+.variation-toggle:hover:not(.active) {
+  background-color: #e0e0e0 !important;
+}
+
+/* Seletor de período */
+.time-range-selector-container {
+  margin-top: 20px !important;
+  padding: 0 !important;
+}
+
+.time-range-selector {
+  display: flex !important;
+  justify-content: space-between !important;
+  background-color: #f0f0f0 !important;
+  border-radius: 20px !important;
+  padding: 4px !important;
+  overflow: hidden !important;
+}
+
+.time-range-selector button {
+  flex: 1 !important;
+  background: none !important;
+  border: none !important;
+  padding: 10px 0 !important;
+  font-size: 14px !important;
+  cursor: pointer !important;
+  border-radius: 16px !important;
+  transition: all 0.2s ease !important;
+  color: #555 !important;
+}
+
+.time-range-selector button.active {
+  background-color: #4285f4 !important;
+  color: white !important;
+  font-weight: 500 !important;
+  box-shadow: 0 2px 4px rgba(66, 133, 244, 0.3) !important;
+}
+
+.time-range-selector button:hover:not(.active) {
+  background-color: rgba(66, 133, 244, 0.1) !important;
+}
+
+/* Resumo de performance */
+.performance-summary {
+  padding: 15px !important;
+  background-color: #f9f9f9 !important;
+  border-radius: 8px !important;
+  margin-top: 15px !important;
+  text-align: center !important;
+}
+
+.performance-value {
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  color: #333 !important;
+}
+
+.performance-value .positive {
+  color: #34a853 !important;
+}
+
+.performance-value .negative {
+  color: #ea4335 !important;
+}
+
+/* Contêiner de indicadores */
+.indicators-container {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 15px !important;
+}
+
+.indicators-row {
+  display: flex !important;
+  justify-content: space-between !important;
+  gap: 15px !important;
+}
+
+.first-row {
+  margin-bottom: 5px !important;
+}
+
+.indicator-item {
+  flex: 1 !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  border-radius: 10px !important;
+  overflow: hidden !important;
+  position: relative !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1) !important;
+}
+
+.indicator-item:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15) !important;
+}
+
+.indicator-item.active {
+  box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.6) !important;
+  transform: translateY(-3px) !important;
+}
+
+.indicator-content {
+  padding: 15px 10px !important;
+  text-align: center !important;
+  border-radius: 10px !important;
+  opacity: 0.95 !important;
+  transition: opacity 0.2s ease !important;
+}
+
+.indicator-item:hover .indicator-content,
+.indicator-item.active .indicator-content {
+  opacity: 1 !important;
+}
+
+.indicator-name {
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  color: #fff !important;
+  margin-bottom: 8px !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+}
+
+.indicator-value {
+  font-size: 20px !important;
+  font-weight: 700 !important;
+  color: #fff !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Estilos para o tooltip do gráfico */
+.custom-tooltip {
+  background-color: white !important;
+  border: 1px solid #ddd !important;
+  border-radius: 8px !important;
+  padding: 12px !important;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15) !important;
+}
+
+.tooltip-label {
+  font-weight: 700 !important;
+  margin-bottom: 6px !important;
+  color: #333 !important;
+}
+
+.tooltip-value {
+  color: #4285f4 !important;
+  font-weight: 600 !important;
+}
+
+.tooltip-index {
+  color: #f4b400 !important;
+  font-weight: 600 !important;
+}
+
+.tooltip-diff {
+  color: #34a853 !important;
+  font-weight: 600 !important;
+  margin-top: 4px !important;
+}
+
+/* Garantir que o layout seja mantido em dispositivos móveis */
+@media (max-width: 768px) {
+  .indicators-row {
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+  }
+  
+  .indicator-item {
+    flex: 0 0 calc(50% - 5px) !important;
+    max-width: calc(50% - 5px) !important;
+  }
+  
+  .chart-container {
+    height: 250px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .indicators-row {
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+  
+  .indicator-item {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+  }
+  
+  .indicator-name {
+    font-size: 13px !important;
+  }
+  
+  .indicator-value {
+    font-size: 18px !important;
+  }
+  
+  .indicator-content {
+    padding: 12px 8px !important;
+  }
+  
+  .chart-container {
+    height: 200px !important;
+  }
+}

@@ -1,0 +1,524 @@
+/* Estilos para preservar a identidade visual original do McDuck Dashboard */
+
+/* Reset básico para garantir consistência */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Impedir rolagem horizontal */
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+  background-color: #f5f5f5;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  color: #333;
+}
+
+/* Container principal centralizado */
+.container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+/* Cabeçalho do dashboard */
+.dashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+  background-color: white;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.dashboard-title {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.dashboard-title-icon {
+  margin-right: 8px;
+}
+
+.dashboard-date {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #666;
+}
+
+.dashboard-date-icon {
+  margin-right: 5px;
+}
+
+/* Sistema de navegação por abas */
+.tabs-container {
+  display: flex;
+  width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  background-color: white;
+}
+
+.tabs-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+.tab {
+  flex: 1;
+  min-width: fit-content;
+  padding: 12px;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+  border: 1px solid #eaeaea;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tab-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #e8f0fe;
+  color: #1a73e8;
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+
+.tab-icon {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.tab-label {
+  font-size: 14px;
+}
+
+/* Cores específicas para cada aba */
+.tab-overview {
+  border-bottom: 3px solid #4285f4;
+}
+
+.tab-analysis {
+  border-bottom: 3px solid #fbbc05;
+}
+
+.tab-insights {
+  border-bottom: 3px solid #ea4335;
+}
+
+.tab-learn {
+  border-bottom: 3px solid #34a853;
+}
+
+.tab-discovery {
+  border-bottom: 3px solid #ff6d01;
+}
+
+.tab.active {
+  border-bottom-width: 3px;
+}
+
+/* Cards para exibição de dados */
+.card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin: 15px;
+  padding: 15px;
+}
+
+.card-title {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.card-title-icon {
+  margin-right: 8px;
+}
+
+/* Estilos para valores e métricas */
+.value-large {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.value-medium {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.value-small {
+  font-size: 14px;
+}
+
+.positive {
+  color: #34a853;
+}
+
+.negative {
+  color: #ea4335;
+}
+
+/* Indicadores */
+.indicators-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.indicator {
+  flex: 1;
+  padding: 10px;
+  text-align: center;
+  border-radius: 4px;
+}
+
+.indicator-selic {
+  background-color: #e8f0fe;
+}
+
+.indicator-ipca {
+  background-color: #fff8e1;
+}
+
+.indicator-ibov {
+  background-color: #e0f2f1;
+}
+
+.indicator-label {
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+
+.indicator-value {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* Classes de ativos */
+.asset-class {
+  margin-bottom: 15px;
+}
+
+.asset-class-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.asset-class-title {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.asset-class-value {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.asset-class-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #666;
+}
+
+.asset-class-change {
+  font-weight: 500;
+}
+
+/* Alertas e badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.badge-warning {
+  background-color: #fff8e1;
+  color: #f57c00;
+}
+
+.badge-info {
+  background-color: #e8f0fe;
+  color: #1a73e8;
+}
+
+.badge-success {
+  background-color: #e0f2f1;
+  color: #00897b;
+}
+
+.badge-danger {
+  background-color: #fce8e6;
+  color: #d93025;
+}
+
+/* Conteúdo principal */
+.content {
+  padding: 0;
+}
+
+/* Insights */
+.insight-card {
+  margin-bottom: 15px;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.insight-warning {
+  background-color: #fff8e1;
+  border-left: 4px solid #f57c00;
+}
+
+.insight-info {
+  background-color: #e8f0fe;
+  border-left: 4px solid #1a73e8;
+}
+
+.insight-title {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.insight-title-icon {
+  margin-right: 8px;
+}
+
+.insight-content {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Artigos e conteúdo educacional */
+.article-card {
+  display: flex;
+  padding: 15px;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.article-icon {
+  font-size: 24px;
+  margin-right: 15px;
+}
+
+.article-content {
+  flex: 1;
+}
+
+.article-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.article-summary {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.article-meta {
+  display: flex;
+  font-size: 12px;
+  color: #666;
+}
+
+.article-category {
+  margin-right: 10px;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+  .dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .dashboard-date {
+    margin-top: 5px;
+  }
+  
+  .indicators-container {
+    flex-direction: column;
+  }
+  
+  .indicator {
+    margin-bottom: 10px;
+  }
+}
+
+/* Estilos para cards de ativos individuais */
+.asset-card {
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.asset-card:hover {
+  background-color: #f0f0f0;
+  transform: translateY(-2px);
+}
+
+.asset-card-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.asset-symbol {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.asset-name {
+  color: #666;
+  font-size: 14px;
+}
+
+.asset-card-body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.asset-value {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.asset-change {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Estilos para o Diagrama do Cerrado */
+.diagrama-cerrado {
+  margin: 15px 0;
+}
+
+.diagrama-cerrado-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.diagrama-cerrado-bar {
+  height: 20px;
+  border-radius: 10px;
+  background-color: #e0e0e0;
+  overflow: hidden;
+  position: relative;
+}
+
+.diagrama-cerrado-value {
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.diagrama-cerrado-excellent {
+  background-color: #34a853;
+}
+
+.diagrama-cerrado-good {
+  background-color: #fbbc05;
+}
+
+.diagrama-cerrado-poor {
+  background-color: #ea4335;
+}
+
+/* Estilos para análise fundamentalista */
+.fundamentalist-analysis {
+  display: flex;
+  justify-content: space-between;
+  margin: 15px 0;
+}
+
+.fundamentalist-column {
+  flex: 1;
+  padding: 10px;
+  border-radius: 6px;
+}
+
+.fundamentalist-column-best {
+  background-color: #e0f2f1;
+}
+
+.fundamentalist-column-worst {
+  background-color: #fce8e6;
+}
+
+.fundamentalist-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.fundamentalist-list {
+  list-style: none;
+}
+
+.fundamentalist-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  font-size: 13px;
+}
+
+/* Botão de voltar */
+.back-button {
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  margin: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.back-button:before {
+  content: "←";
+  margin-right: 5px;
+}
+
+.back-button:hover {
+  background-color: #e0e0e0;
+}
