@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import '../../styles/modal-complete.css';
 import { formatCurrency, formatPercentage } from '../../lib/formatters';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import EditAssetModal from './EditAssetModal';
 
 const AssetDetailModalComplete = ({ asset, onClose }) => {
   // Estado para controlar qual aba está ativa
   const [activeTab, setActiveTab] = useState('resumo');
+  const [showEditModal, setShowEditModal] = useState(false);
 
   // Dados simulados para o comparativo
   const comparisons = [
@@ -419,9 +421,31 @@ const AssetDetailModalComplete = ({ asset, onClose }) => {
 
         <div className="modal-footer">
           <button className="action-button buy-button">Comprar</button>
+          <button 
+            className="action-button edit-button"
+            onClick={() => setShowEditModal(true)}
+            style={{
+              backgroundColor: '#2196F3',
+              color: 'white'
+            }}
+          >
+            ✏️ Editar
+          </button>
           <button className="action-button sell-button">Vender</button>
         </div>
       </div>
+      
+      {/* Modal de edição */}
+      {showEditModal && (
+        <EditAssetModal 
+          asset={asset} 
+          onClose={() => setShowEditModal(false)}
+          onSuccess={() => {
+            setShowEditModal(false);
+            // Opcional: atualizar dados do ativo após edição
+          }}
+        />
+      )}
     </div>
   );
 };

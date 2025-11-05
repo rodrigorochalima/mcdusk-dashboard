@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { formatCurrency, formatPercentage } from '../../lib/formatters';
 import AssetDetailModalComplete from '../modals/AssetDetailModalComplete';
-import EditAssetModal from '../modals/EditAssetModal';
 
 /**
  * Componente para exibir um ativo individual
@@ -11,7 +10,6 @@ import EditAssetModal from '../modals/EditAssetModal';
  */
 const AssetCard = ({ asset, onClick }) => {
   const [showModal, setShowModal] = useState(false);
-  const [showEditModal, setShowEditModal] = useState(false);
   
   // Verificar se change é um número válido
   const isValid = asset.change !== undefined && 
@@ -50,44 +48,8 @@ const AssetCard = ({ asset, onClick }) => {
       <div 
         className="card asset-card" 
         onClick={handleClick}
-        style={{ cursor: 'pointer', position: 'relative' }}
+        style={{ cursor: 'pointer' }}
       >
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            setShowEditModal(true);
-          }}
-          style={{
-            position: 'absolute',
-            bottom: '10px',
-            right: '10px',
-            backgroundColor: '#2196F3',
-            color: 'white',
-            border: 'none',
-            borderRadius: '50%',
-            width: '36px',
-            height: '36px',
-            fontSize: '18px',
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            zIndex: 10,
-            transition: 'all 0.2s',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.15)'
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = 'scale(1.1)';
-            e.currentTarget.style.backgroundColor = '#1976D2';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = 'scale(1)';
-            e.currentTarget.style.backgroundColor = '#2196F3';
-          }}
-          title="Editar ativo"
-        >
-          ✏️
-        </button>
         <div className="asset-card-header">
           <span className="asset-symbol">{asset.symbol}</span>
           <span className="asset-name">{asset.name}</span>
@@ -109,14 +71,7 @@ const AssetCard = ({ asset, onClick }) => {
         />
       )}
       
-      {/* Modal de edição rápida */}
-      {showEditModal && (
-        <EditAssetModal 
-          asset={asset} 
-          onClose={() => setShowEditModal(false)}
-          onSuccess={() => setShowEditModal(false)}
-        />
-      )}
+
     </>
   );
 };
