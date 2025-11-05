@@ -27,10 +27,25 @@ const DiscoveryView = () => {
       // Mock de dados de ativos. Em um app real, viria de uma API.
       const allAssets = [
         { symbol: 'PETR4', name: 'Petrobras', price: 38.50, change: 1.2, logo: '/assets/logos/petr4.png' },
+        { symbol: 'PETR3', name: 'Petrobras', price: 40.20, change: 1.5, logo: '/assets/logos/petr3.png' },
         { symbol: 'VALE3', name: 'Vale', price: 62.75, change: -0.5, logo: '/assets/logos/vale3.png' },
+        { symbol: 'VALE5', name: 'Vale', price: 65.30, change: -0.3, logo: '/assets/logos/vale5.png' },
         { symbol: 'ITUB4', name: 'Itaú Unibanco', price: 31.20, change: 0.8, logo: '/assets/logos/itub4.png' },
+        { symbol: 'ITUB3', name: 'Itaú Unibanco', price: 32.10, change: 0.9, logo: '/assets/logos/itub3.png' },
         { symbol: 'BBDC4', name: 'Bradesco', price: 13.50, change: 0.2, logo: '/assets/logos/bbdc4.png' },
+        { symbol: 'BBDC3', name: 'Bradesco', price: 14.20, change: 0.3, logo: '/assets/logos/bbdc3.png' },
         { symbol: 'MGLU3', name: 'Magazine Luiza', price: 2.15, change: -3.1, logo: '/assets/logos/mglu3.png' },
+        { symbol: 'BBAS3', name: 'Banco do Brasil', price: 28.90, change: 0.5, logo: '/assets/logos/bbas3.png' },
+        { symbol: 'ABEV3', name: 'Ambev', price: 13.25, change: -0.2, logo: '/assets/logos/abev3.png' },
+        { symbol: 'WEGE3', name: 'WEG', price: 42.80, change: 1.8, logo: '/assets/logos/wege3.png' },
+        { symbol: 'RENT3', name: 'Localiza', price: 55.40, change: 2.1, logo: '/assets/logos/rent3.png' },
+        { symbol: 'ELET3', name: 'Eletrobras', price: 45.60, change: 0.7, logo: '/assets/logos/elet3.png' },
+        { symbol: 'ELET6', name: 'Eletrobras', price: 47.20, change: 0.8, logo: '/assets/logos/elet6.png' },
+        { symbol: 'SUZB3', name: 'Suzano', price: 52.30, change: -1.2, logo: '/assets/logos/suzb3.png' },
+        { symbol: 'RAIL3', name: 'Rumo', price: 18.75, change: 1.5, logo: '/assets/logos/rail3.png' },
+        { symbol: 'RADL3', name: 'Raia Drogasil', price: 24.60, change: 0.4, logo: '/assets/logos/radl3.png' },
+        { symbol: 'PRIO3', name: 'PRIO', price: 48.90, change: 2.3, logo: '/assets/logos/prio3.png' },
+        { symbol: 'ALPA4', name: 'Alpargatas', price: 8.45, change: -0.8, logo: '/assets/logos/alpa4.png' },
       ];
       const filteredAssets = allAssets.filter(asset => 
         asset.symbol.toLowerCase().includes(query.toLowerCase()) || 

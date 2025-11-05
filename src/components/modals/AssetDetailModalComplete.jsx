@@ -9,6 +9,15 @@ const AssetDetailModalComplete = ({ asset, onClose }) => {
   const [activeTab, setActiveTab] = useState('resumo');
   const [showEditModal, setShowEditModal] = useState(false);
 
+  // Funções dos botões
+  const handleBuy = () => {
+    alert(`Funcionalidade de COMPRA de ${asset.symbol} em desenvolvimento!\n\nEm breve você poderá registrar novas compras diretamente aqui.`);
+  };
+
+  const handleSell = () => {
+    alert(`Funcionalidade de VENDA de ${asset.symbol} em desenvolvimento!\n\nEm breve você poderá registrar vendas diretamente aqui.`);
+  };
+
   // Dados simulados para o comparativo
   const comparisons = [
     { name: 'vs SELIC', value: '+66.37%' },
@@ -420,7 +429,12 @@ const AssetDetailModalComplete = ({ asset, onClose }) => {
         </div>
 
         <div className="modal-footer">
-          <button className="action-button buy-button">Comprar</button>
+          <button 
+            className="action-button buy-button"
+            onClick={handleBuy}
+          >
+            Comprar
+          </button>
           <button 
             className="action-button edit-button"
             onClick={() => setShowEditModal(true)}
@@ -431,7 +445,12 @@ const AssetDetailModalComplete = ({ asset, onClose }) => {
           >
             ✏️ Editar
           </button>
-          <button className="action-button sell-button">Vender</button>
+          <button 
+            className="action-button sell-button"
+            onClick={handleSell}
+          >
+            Vender
+          </button>
         </div>
       </div>
       
