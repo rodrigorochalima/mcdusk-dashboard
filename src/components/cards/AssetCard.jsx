@@ -59,21 +59,30 @@ const AssetCard = ({ asset, onClick }) => {
           }}
           style={{
             position: 'absolute',
-            top: '10px',
+            bottom: '10px',
             right: '10px',
             backgroundColor: '#2196F3',
             color: 'white',
             border: 'none',
             borderRadius: '50%',
-            width: '32px',
-            height: '32px',
-            fontSize: '16px',
+            width: '36px',
+            height: '36px',
+            fontSize: '18px',
             cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             zIndex: 10,
-            transition: 'all 0.2s'
+            transition: 'all 0.2s',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.15)'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = 'scale(1.1)';
+            e.currentTarget.style.backgroundColor = '#1976D2';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = 'scale(1)';
+            e.currentTarget.style.backgroundColor = '#2196F3';
           }}
           title="Editar ativo"
         >
