@@ -3,6 +3,7 @@ import { supabase } from '../../lib/supabaseClient';
 import { getAssetClasses, getTotalPatrimony } from '../../data/portfolioData-supabase';
 import AssetClassCard from '../cards/AssetClassCard';
 import EditAssetModal from '../modals/EditAssetModal';
+import AddAssetModal from '../modals/AddAssetModal';
 
 export default function OverviewView() {
   const [assetClasses, setAssetClasses] = useState([]);
@@ -10,6 +11,7 @@ export default function OverviewView() {
   const [loading, setLoading] = useState(true);
   const [selectedAsset, setSelectedAsset] = useState(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [user, setUser] = useState(null);
 
   // Carregar dados ao montar componente
@@ -138,22 +140,31 @@ export default function OverviewView() {
         <h1 className="text-3xl font-bold text-gray-900 mb-2">
           Visão Geral do Portfólio
         </h1>
-        <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between">
           <div>
             <p className="text-gray-600">Patrimônio Total</p>
             <p className="text-4xl font-bold text-green-600">
               R$ {parseFloat(totalPatrimony).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
             </p>
           </div>
-          <div className="text-right">
-            <p className="text-sm text-gray-500">Logado como:</p>
-            <p className="text-sm font-medium">{user.email}</p>
+          <div className="flex items-center gap-4">
             <button
-              onClick={() => supabase.auth.signOut()}
-              className="text-sm text-red-600 hover:underline mt-1"
+              onClick={() => setIsAddModalOpen(true)}
+              className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition font-medium flex items-center gap-2"
             >
-              Sair
+              <span style={{ fontSize: '20px' }}>➕</span>
+              Adicionar Ativo
             </button>
+            <div className="text-right">
+              <p className="text-sm text-gray-500">Logado como:</p>
+              <p className="text-sm font-medium">{user.email}</p>
+              <button
+                onClick={() => supabase.auth.signOut()}
+                className="text-sm text-red-600 hover:underline mt-1"
+              >
+                Sair
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -164,10 +175,10 @@ export default function OverviewView() {
           <div className="text-center py-12 bg-gray-50 rounded-lg">
             <p className="text-gray-600 mb-4">Nenhum ativo encontrado</p>
             <button
-              className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition"
-              onClick={() => {/* TODO: Implementar adicionar ativo */}}
+              className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition font-medium"
+              onClick={() => setIsAddModalOpen(true)}
             >
-              Adicionar Primeiro Ativo
+              ➕ Adicionar Primeiro Ativo
             </button>
           </div>
         ) : (
@@ -186,7 +197,15 @@ export default function OverviewView() {
         <EditAssetModal
           asset={selectedAsset}
           onClose={handleCloseModal}
-          onSave={handleAssetUpdated}
+          onSuccess={handleAssetUpdated}
+        />
+      )}
+
+      {/* Add Asset Modal */}
+      {isAddModalOpen && (
+        <AddAssetModal
+          onClose={() => setIsAddModalOpen(false)}
+          onSuccess={handleAssetUpdated}
         />
       )}
     </div>

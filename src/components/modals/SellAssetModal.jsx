@@ -134,6 +134,9 @@ const SellAssetModal = ({ asset, onClose, onSuccess }) => {
                 disabled
                 style={{ backgroundColor: '#fff3e0', fontWeight: 'bold' }}
               />
+              <small style={{ color: '#ff6f00', fontSize: '13px', fontWeight: 'bold' }}>
+                ⚠️ Se vender todas as unidades, o ativo será EXCLUÍDO da carteira
+              </small>
             </div>
 
             <div className="form-group">

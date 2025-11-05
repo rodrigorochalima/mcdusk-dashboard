@@ -3,21 +3,20 @@ import { supabase } from '../../lib/supabase';
 import '../../styles/modal.css';
 
 /**
- * Modal COMPLETO de edição de ativo
- * Permite ajuste fino de todos os parâmetros
+ * Modal COMPLETO para adicionar um novo ativo do zero
  */
-const EditAssetModal = ({ asset, onClose, onSuccess }) => {
+const AddAssetModal = ({ onClose, onSuccess }) => {
   const [formData, setFormData] = useState({
-    symbol: asset.symbol || '',
-    name: asset.name || '',
-    category: asset.category || 'acoes',
-    quantity: asset.quantity || 0,
-    average_price: asset.average_price || 0,
-    average_price_with_dividends: asset.average_price_with_dividends || 0,
-    first_purchase_date: asset.first_purchase_date || '',
-    target_price: asset.target_price || 0,
-    stop_loss: asset.stop_loss || 0,
-    notes: asset.notes || ''
+    symbol: '',
+    name: '',
+    category: 'acoes',
+    quantity: '',
+    average_price: '',
+    average_price_with_dividends: '',
+    first_purchase_date: '',
+    target_price: '',
+    stop_loss: '',
+    notes: ''
   });
 
   const [loading, setLoading] = useState(false);
@@ -40,51 +39,6 @@ const EditAssetModal = ({ asset, onClose, onSuccess }) => {
     }));
   };
 
-  const handleDelete = async () => {
-    const confirmDelete = window.confirm(
-      `⚠️ ATENÇÃO!\n\n` +
-      `Você está prestes a EXCLUIR permanentemente o ativo:\n\n` +
-      `${asset.symbol} - ${asset.name}\n` +
-      `Quantidade: ${asset.quantity}\n` +
-      `Valor: R$ ${(asset.quantity * asset.average_price).toFixed(2)}\n\n` +
-      `Esta ação NÃO PODE SER DESFEITA!\n\n` +
-      `Deseja realmente excluir este ativo?`
-    );
-
-    if (!confirmDelete) return;
-
-    setLoading(true);
-
-    try {
-      const { data: { user } } = await supabase.auth.getUser();
-      
-      if (!user) {
-        throw new Error('Usuário não autenticado');
-      }
-
-      const { error: deleteError } = await supabase
-        .from('assets')
-        .delete()
-        .eq('user_id', user.id)
-        .eq('symbol', asset.symbol);
-
-      if (deleteError) throw deleteError;
-
-      alert(`✅ Ativo ${asset.symbol} excluído com sucesso!`);
-      
-      if (onSuccess) onSuccess();
-      
-      setTimeout(() => {
-        window.location.reload();
-      }, 500);
-
-    } catch (err) {
-      console.error('Erro ao excluir ativo:', err);
-      setError(err.message || 'Erro ao excluir ativo');
-      setLoading(false);
-    }
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
@@ -95,13 +49,13 @@ const EditAssetModal = ({ asset, onClose, onSuccess }) => {
       return;
     }
 
-    if (formData.quantity < 0) {
-      setError('Quantidade não pode ser negativa');
+    if (!formData.quantity || parseFloat(formData.quantity) <= 0) {
+      setError('Quantidade deve ser maior que zero');
       return;
     }
 
-    if (formData.average_price < 0) {
-      setError('Preço médio não pode ser negativo');
+    if (!formData.average_price || parseFloat(formData.average_price) <= 0) {
+      setError('Preço médio deve ser maior que zero');
       return;
     }
 
@@ -115,28 +69,44 @@ const EditAssetModal = ({ asset, onClose, onSuccess }) => {
         throw new Error('Usuário não autenticado');
       }
 
-      // Atualizar o ativo
-      const { error: updateError } = await supabase
+      // Verificar se o ativo já existe
+      const { data: existingAsset } = await supabase
         .from('assets')
-        .update({
+        .select('symbol')
+        .eq('user_id', user.id)
+        .eq('symbol', formData.symbol.toUpperCase())
+        .single();
+
+      if (existingAsset) {
+        setError(`Você já possui ${formData.symbol.toUpperCase()} na carteira. Use o botão "Comprar" para adicionar mais unidades.`);
+        setLoading(false);
+        return;
+      }
+
+      // Criar novo ativo
+      const { error: insertError } = await supabase
+        .from('assets')
+        .insert([{
+          user_id: user.id,
           symbol: formData.symbol.toUpperCase(),
           name: formData.name,
           category: formData.category,
           quantity: parseFloat(formData.quantity),
           average_price: parseFloat(formData.average_price),
-          average_price_with_dividends: parseFloat(formData.average_price_with_dividends) || null,
+          average_price_with_dividends: formData.average_price_with_dividends ? parseFloat(formData.average_price_with_dividends) : null,
           first_purchase_date: formData.first_purchase_date || null,
-          target_price: parseFloat(formData.target_price) || null,
-          stop_loss: parseFloat(formData.stop_loss) || null,
+          target_price: formData.target_price ? parseFloat(formData.target_price) : null,
+          stop_loss: formData.stop_loss ? parseFloat(formData.stop_loss) : null,
           notes: formData.notes || null,
+          created_at: new Date().toISOString(),
           updated_at: new Date().toISOString()
-        })
-        .eq('user_id', user.id)
-        .eq('symbol', asset.symbol);
+        }]);
 
-      if (updateError) throw updateError;
+      if (insertError) throw insertError;
 
       // Sucesso!
+      alert(`✅ Ativo ${formData.symbol.toUpperCase()} adicionado com sucesso!`);
+      
       if (onSuccess) onSuccess();
       
       // Recarregar a página para refletir as mudanças
@@ -145,20 +115,21 @@ const EditAssetModal = ({ asset, onClose, onSuccess }) => {
       }, 500);
 
     } catch (err) {
-      console.error('Erro ao atualizar ativo:', err);
-      setError(err.message || 'Erro ao salvar alterações');
+      console.error('Erro ao adicionar ativo:', err);
+      setError(err.message || 'Erro ao adicionar ativo');
       setLoading(false);
     }
   };
 
-  const totalValue = formData.quantity * formData.average_price;
-  const totalValueWithDividends = formData.quantity * (formData.average_price_with_dividends || formData.average_price);
+  const totalValue = formData.quantity && formData.average_price 
+    ? (parseFloat(formData.quantity) * parseFloat(formData.average_price)).toFixed(2) 
+    : '0.00';
 
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-container" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '700px', maxHeight: '90vh', overflowY: 'auto' }}>
         <div className="modal-header">
-          <h2>✏️ Edição Completa do Ativo</h2>
+          <h2>➕ Adicionar Novo Ativo</h2>
           <button className="close-button" onClick={onClose}>×</button>
         </div>
 
@@ -184,10 +155,14 @@ const EditAssetModal = ({ asset, onClose, onSuccess }) => {
                   type="text" 
                   value={formData.symbol}
                   onChange={(e) => handleChange('symbol', e.target.value.toUpperCase())}
-                  placeholder="Ex: PETR4"
+                  placeholder="Ex: PETR4, MXRF11, IVVB11"
                   required
+                  autoFocus
                   style={{ textTransform: 'uppercase' }}
                 />
+                <small style={{ color: '#666', fontSize: '13px' }}>
+                  Código de negociação do ativo na bolsa
+                </small>
               </div>
 
               <div className="form-group">
@@ -196,7 +171,7 @@ const EditAssetModal = ({ asset, onClose, onSuccess }) => {
                   type="text" 
                   value={formData.name}
                   onChange={(e) => handleChange('name', e.target.value)}
-                  placeholder="Ex: Petrobras"
+                  placeholder="Ex: Petrobras, Maxi Renda, iShares S&P 500"
                   required
                 />
               </div>
@@ -223,7 +198,7 @@ const EditAssetModal = ({ asset, onClose, onSuccess }) => {
               </div>
             </div>
 
-            {/* Seção: Posição */}
+            {/* Seção: Primeira Compra */}
             <div style={{ marginBottom: '30px' }}>
               <h3 style={{ 
                 fontSize: '18px', 
@@ -233,7 +208,7 @@ const EditAssetModal = ({ asset, onClose, onSuccess }) => {
                 borderBottom: '2px solid #4CAF50',
                 paddingBottom: '8px'
               }}>
-                📊 Posição
+                💰 Primeira Compra
               </h3>
 
               <div className="form-group">
@@ -246,6 +221,9 @@ const EditAssetModal = ({ asset, onClose, onSuccess }) => {
                   placeholder="Ex: 100"
                   required
                 />
+                <small style={{ color: '#666', fontSize: '13px' }}>
+                  Número de unidades/cotas que você está adquirindo
+                </small>
               </div>
 
               <div className="form-group">
@@ -259,70 +237,12 @@ const EditAssetModal = ({ asset, onClose, onSuccess }) => {
                   required
                 />
                 <small style={{ color: '#666', fontSize: '13px' }}>
-                  Preço médio pago nas compras (sem considerar proventos)
+                  Preço pago por unidade (incluindo taxas se desejar)
                 </small>
               </div>
 
               <div className="form-group">
-                <label>Preço Médio com Proventos (R$)</label>
-                <input 
-                  type="number" 
-                  step="0.01"
-                  value={formData.average_price_with_dividends}
-                  onChange={(e) => handleChange('average_price_with_dividends', e.target.value)}
-                  placeholder="Ex: 35.20"
-                />
-                <small style={{ color: '#666', fontSize: '13px' }}>
-                  Preço médio ajustado após receber dividendos/JCP
-                </small>
-              </div>
-
-              <div className="form-group">
-                <label>Valor Total Investido</label>
-                <input 
-                  type="text" 
-                  value={`R$ ${totalValue.toFixed(2)}`}
-                  disabled
-                  style={{ 
-                    backgroundColor: '#e8f5e9', 
-                    fontWeight: 'bold',
-                    fontSize: '18px'
-                  }}
-                />
-              </div>
-
-              {formData.average_price_with_dividends > 0 && (
-                <div className="form-group">
-                  <label>Valor com Proventos</label>
-                  <input 
-                    type="text" 
-                    value={`R$ ${totalValueWithDividends.toFixed(2)}`}
-                    disabled
-                    style={{ 
-                      backgroundColor: '#e3f2fd', 
-                      fontWeight: 'bold',
-                      fontSize: '18px'
-                    }}
-                  />
-                </div>
-              )}
-            </div>
-
-            {/* Seção: Estratégia */}
-            <div style={{ marginBottom: '30px' }}>
-              <h3 style={{ 
-                fontSize: '18px', 
-                fontWeight: 'bold', 
-                marginBottom: '15px',
-                color: '#FF9800',
-                borderBottom: '2px solid #FF9800',
-                paddingBottom: '8px'
-              }}>
-                🎯 Estratégia
-              </h3>
-
-              <div className="form-group">
-                <label>Data da Primeira Compra</label>
+                <label>Data da Compra</label>
                 <input 
                   type="date" 
                   value={formData.first_purchase_date}
@@ -335,6 +255,49 @@ const EditAssetModal = ({ asset, onClose, onSuccess }) => {
                     borderRadius: '8px'
                   }}
                 />
+              </div>
+
+              <div className="form-group">
+                <label>Valor Total Investido</label>
+                <input 
+                  type="text" 
+                  value={`R$ ${totalValue}`}
+                  disabled
+                  style={{ 
+                    backgroundColor: '#e8f5e9', 
+                    fontWeight: 'bold',
+                    fontSize: '20px',
+                    textAlign: 'center'
+                  }}
+                />
+              </div>
+            </div>
+
+            {/* Seção: Estratégia (Opcional) */}
+            <div style={{ marginBottom: '30px' }}>
+              <h3 style={{ 
+                fontSize: '18px', 
+                fontWeight: 'bold', 
+                marginBottom: '15px',
+                color: '#FF9800',
+                borderBottom: '2px solid #FF9800',
+                paddingBottom: '8px'
+              }}>
+                🎯 Estratégia (Opcional)
+              </h3>
+
+              <div className="form-group">
+                <label>Preço Médio com Proventos (R$)</label>
+                <input 
+                  type="number" 
+                  step="0.01"
+                  value={formData.average_price_with_dividends}
+                  onChange={(e) => handleChange('average_price_with_dividends', e.target.value)}
+                  placeholder="Ex: 35.20"
+                />
+                <small style={{ color: '#666', fontSize: '13px' }}>
+                  Deixe em branco por enquanto. Você pode ajustar depois ao receber dividendos.
+                </small>
               </div>
 
               <div className="form-group">
@@ -366,7 +329,7 @@ const EditAssetModal = ({ asset, onClose, onSuccess }) => {
               </div>
             </div>
 
-            {/* Seção: Observações */}
+            {/* Seção: Observações (Opcional) */}
             <div style={{ marginBottom: '20px' }}>
               <h3 style={{ 
                 fontSize: '18px', 
@@ -376,7 +339,7 @@ const EditAssetModal = ({ asset, onClose, onSuccess }) => {
                 borderBottom: '2px solid #9C27B0',
                 paddingBottom: '8px'
               }}>
-                📝 Observações
+                📝 Observações (Opcional)
               </h3>
 
               <div className="form-group">
@@ -384,7 +347,7 @@ const EditAssetModal = ({ asset, onClose, onSuccess }) => {
                 <textarea 
                   value={formData.notes}
                   onChange={(e) => handleChange('notes', e.target.value)}
-                  placeholder="Ex: Ativo com bom histórico de dividendos. Acompanhar resultados trimestrais..."
+                  placeholder="Ex: Ativo recomendado pelo analista X. Estratégia de longo prazo. Acompanhar resultados trimestrais..."
                   rows="4"
                   style={{
                     width: '100%',
@@ -412,43 +375,23 @@ const EditAssetModal = ({ asset, onClose, onSuccess }) => {
             )}
           </div>
 
-          <div className="modal-footer" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div className="modal-footer">
             <button 
               type="button" 
-              onClick={handleDelete}
+              className="cancel-button" 
+              onClick={onClose}
               disabled={loading}
-              style={{
-                padding: '12px 20px',
-                fontSize: '16px',
-                fontWeight: 'bold',
-                backgroundColor: '#f44336',
-                color: 'white',
-                border: 'none',
-                borderRadius: '8px',
-                cursor: loading ? 'not-allowed' : 'pointer',
-                opacity: loading ? 0.6 : 1
-              }}
             >
-              🗑️ Excluir Ativo
+              Cancelar
             </button>
-            
-            <div style={{ display: 'flex', gap: '10px' }}>
-              <button 
-                type="button" 
-                className="cancel-button" 
-                onClick={onClose}
-                disabled={loading}
-              >
-                Cancelar
-              </button>
-              <button 
-                type="submit" 
-                className="save-button"
-                disabled={loading}
-              >
-                {loading ? '⏳ Salvando...' : '💾 Salvar Alterações'}
-              </button>
-            </div>
+            <button 
+              type="submit" 
+              className="save-button"
+              disabled={loading}
+              style={{ backgroundColor: '#4CAF50' }}
+            >
+              {loading ? '⏳ Adicionando...' : '✓ Adicionar Ativo'}
+            </button>
           </div>
         </form>
       </div>
@@ -456,5 +399,5 @@ const EditAssetModal = ({ asset, onClose, onSuccess }) => {
   );
 };
 
-export default EditAssetModal;
+export default AddAssetModal;
 
