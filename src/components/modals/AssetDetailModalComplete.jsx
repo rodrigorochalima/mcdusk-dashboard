@@ -3,19 +3,28 @@ import '../../styles/modal-complete.css';
 import { formatCurrency, formatPercentage } from '../../lib/formatters';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import EditAssetModal from './EditAssetModal';
+import BuyAssetModal from './BuyAssetModal';
+import SellAssetModal from './SellAssetModal';
 
 const AssetDetailModalComplete = ({ asset, onClose }) => {
   // Estado para controlar qual aba está ativa
   const [activeTab, setActiveTab] = useState('resumo');
   const [showEditModal, setShowEditModal] = useState(false);
+  const [showBuyModal, setShowBuyModal] = useState(false);
+  const [showSellModal, setShowSellModal] = useState(false);
 
   // Funções dos botões
   const handleBuy = () => {
-    alert(`Funcionalidade de COMPRA de ${asset.symbol} em desenvolvimento!\n\nEm breve você poderá registrar novas compras diretamente aqui.`);
+    setShowBuyModal(true);
   };
 
   const handleSell = () => {
-    alert(`Funcionalidade de VENDA de ${asset.symbol} em desenvolvimento!\n\nEm breve você poderá registrar vendas diretamente aqui.`);
+    setShowSellModal(true);
+  };
+
+  const handleModalSuccess = () => {
+    // Recarregar a página para refletir as mudanças
+    window.location.reload();
   };
 
   // Dados simulados para o comparativo
@@ -459,10 +468,25 @@ const AssetDetailModalComplete = ({ asset, onClose }) => {
         <EditAssetModal 
           asset={asset} 
           onClose={() => setShowEditModal(false)}
-          onSuccess={() => {
-            setShowEditModal(false);
-            // Opcional: atualizar dados do ativo após edição
-          }}
+          onSuccess={handleModalSuccess}
+        />
+      )}
+
+      {/* Modal de compra */}
+      {showBuyModal && (
+        <BuyAssetModal 
+          asset={asset} 
+          onClose={() => setShowBuyModal(false)}
+          onSuccess={handleModalSuccess}
+        />
+      )}
+
+      {/* Modal de venda */}
+      {showSellModal && (
+        <SellAssetModal 
+          asset={asset} 
+          onClose={() => setShowSellModal(false)}
+          onSuccess={handleModalSuccess}
         />
       )}
     </div>
