@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Header from './components/layout/Header';
 import TabNavigation from './components/navigation/TabNavigation';
-import OverviewView from './components/views/OverviewView';
+import OverviewView from './components/views/OverviewView-supabase';
 import AnalysisView from './components/views/AnalysisView';
 import InsightsView from './components/views/InsightsView';
 import LearnView from './components/views/LearnView';
