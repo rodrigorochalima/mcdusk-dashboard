@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { supabase } from '../../lib/supabase';
+import { supabase } from '../../lib/supabaseClient';
 import '../../styles/modal.css';
 
 const BuyAssetModal = ({ asset, onClose, onSuccess }) => {
