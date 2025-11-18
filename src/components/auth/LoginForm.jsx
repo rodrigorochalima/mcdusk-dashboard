@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { supabase } from '../../lib/supabaseClient';
 
-export default function LoginForm({ onSuccess, onSwitchToSignup }) {
+export default function LoginForm({ onSuccess, onSwitchToSignup, onForgotPassword }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -86,6 +86,18 @@ export default function LoginForm({ onSuccess, onSwitchToSignup }) {
             {error}
           </div>
         )}
+
+        {/* Forgot Password */}
+        <div className="text-right">
+          <button
+            type="button"
+            onClick={onForgotPassword}
+            className="text-sm text-blue-600 hover:underline"
+            disabled={loading}
+          >
+            Esqueceu a senha?
+          </button>
+        </div>
 
         {/* Submit */}
         <button

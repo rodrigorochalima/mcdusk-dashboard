@@ -1,18 +1,18 @@
 import { useState, useEffect } from 'react'
 import { supabase } from './lib/supabaseClient';
+import AuthPage from './components/auth/AuthPage';
 import Header from './components/layout/Header';
 import TabNavigation from './components/navigation/TabNavigation';
-import OverviewView from './components/views/OverviewView-supabase';
+import OverviewView from './components/views/OverviewView';
 import AnalysisView from './components/views/AnalysisView';
 import InsightsView from './components/views/InsightsView';
 import LearnView from './components/views/LearnView';
 import DiscoveryView from './components/views/DiscoveryView';
-import AuthPage from './pages/AuthPage';
 
 function App() {
-  const [activeTab, setActiveTab] = useState('overview');
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [activeTab, setActiveTab] = useState('overview');
   
   const tabs = [
     { id: 'overview', label: 'Visão Geral', icon: '📊' },
@@ -24,7 +24,7 @@ function App() {
 
   // Verificar autenticação ao carregar
   useEffect(() => {
-    checkUser();
+    checkAuth();
 
     // Escutar mudanças de autenticação
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
@@ -35,16 +35,20 @@ function App() {
     return () => subscription.unsubscribe();
   }, []);
 
-  async function checkUser() {
+  async function checkAuth() {
     try {
-      const { data: { user } } = await supabase.auth.getUser();
-      setUser(user);
+      const { data: { session } } = await supabase.auth.getSession();
+      setUser(session?.user ?? null);
     } catch (error) {
-      console.error('Erro ao verificar usuário:', error);
+      console.error('Erro ao verificar autenticação:', error);
     } finally {
       setLoading(false);
     }
   }
+
+  const handleAuthSuccess = (authenticatedUser) => {
+    setUser(authenticatedUser);
+  };
   
   const renderContent = () => {
     switch (activeTab) {
@@ -63,19 +67,13 @@ function App() {
     }
   };
 
-  // Mostrar loading enquanto verifica autenticação
+  // Loading state
   if (loading) {
     return (
-      <div style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh',
-        backgroundColor: '#f5f5f5'
-      }}>
-        <div style={{ textAlign: 'center' }}>
-          <h2>Carregando...</h2>
-          <p>Verificando autenticação...</p>
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Carregando...</p>
         </div>
       </div>
     );
@@ -83,7 +81,7 @@ function App() {
 
   // Se não estiver autenticado, mostrar tela de login
   if (!user) {
-    return <AuthPage />;
+    return <AuthPage onAuthSuccess={handleAuthSuccess} />;
   }
 
   // Se estiver autenticado, mostrar dashboard
