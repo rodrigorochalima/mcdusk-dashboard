@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { supabase } from '../../lib/supabaseClient';
-import McDuckLogo from './McDuckLogo';
 
 export default function SignupForm({ onSuccess, onSwitchToLogin }) {
   const [email, setEmail] = useState('');
@@ -18,7 +17,6 @@ export default function SignupForm({ onSuccess, onSwitchToLogin }) {
       setError(null);
       setSuccess(false);
 
-      // Validação
       if (password !== confirmPassword) {
         throw new Error('As senhas não coincidem');
       }
@@ -27,8 +25,6 @@ export default function SignupForm({ onSuccess, onSwitchToLogin }) {
         throw new Error('A senha deve ter pelo menos 6 caracteres');
       }
 
-      console.log('📝 SignupForm: Criando nova conta...');
-
       const { data, error: authError } = await supabase.auth.signUp({
         email,
         password,
@@ -36,15 +32,12 @@ export default function SignupForm({ onSuccess, onSwitchToLogin }) {
 
       if (authError) throw authError;
 
-      console.log('✅ SignupForm: Conta criada com sucesso!');
-
       setSuccess(true);
       
       setTimeout(() => {
         if (onSuccess) onSuccess(data.user);
       }, 2000);
     } catch (err) {
-      console.error('❌ SignupForm: Erro no cadastro:', err);
       setError(err.message || 'Erro ao criar conta');
       setLoading(false);
     }
@@ -52,148 +45,329 @@ export default function SignupForm({ onSuccess, onSwitchToLogin }) {
 
   if (success) {
     return (
-      <div className="w-full max-w-md mx-auto p-4 sm:p-6">
-        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden p-8">
-          <div className="text-center">
-            <div className="mb-6">
-              <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto">
-                <svg className="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-            </div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-3">
-              Conta criada com sucesso!
-            </h2>
-            <p className="text-gray-600 mb-6 text-sm sm:text-base">
-              Verifique seu email para confirmar sua conta.
-            </p>
-            <button
-              onClick={onSwitchToLogin}
-              className="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-8 py-3 rounded-xl hover:from-green-700 hover:to-emerald-700 transition-all font-semibold shadow-lg"
-            >
-              Voltar para Login
-            </button>
+      <div style={{
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: 'linear-gradient(135deg, #FFF8E1 0%, #FFECB3 50%, #FFE082 100%)',
+        padding: '20px'
+      }}>
+        <div style={{
+          width: '100%',
+          maxWidth: '400px',
+          background: '#FFFFFF',
+          borderRadius: '24px',
+          boxShadow: '0 20px 60px rgba(255, 193, 7, 0.3)',
+          padding: '48px 32px',
+          textAlign: 'center'
+        }}>
+          <div style={{
+            width: '80px',
+            height: '80px',
+            background: 'linear-gradient(135deg, #C8E6C9 0%, #81C784 100%)',
+            borderRadius: '50%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            margin: '0 auto 24px',
+            boxShadow: '0 8px 24px rgba(129, 199, 132, 0.4)'
+          }}>
+            <span style={{ fontSize: '40px' }}>✓</span>
           </div>
+          <h2 style={{
+            fontSize: '28px',
+            fontWeight: '700',
+            color: '#1A1A1A',
+            marginBottom: '12px'
+          }}>
+            Conta criada!
+          </h2>
+          <p style={{
+            fontSize: '16px',
+            color: '#666666',
+            marginBottom: '32px',
+            lineHeight: '1.5'
+          }}>
+            Verifique seu email para confirmar sua conta.
+          </p>
+          <button
+            onClick={onSwitchToLogin}
+            style={{
+              padding: '16px 40px',
+              fontSize: '17px',
+              fontWeight: '700',
+              color: '#FFFFFF',
+              background: 'linear-gradient(135deg, #FFB300 0%, #FF8F00 100%)',
+              border: 'none',
+              borderRadius: '12px',
+              cursor: 'pointer',
+              boxShadow: '0 8px 24px rgba(255, 143, 0, 0.4)'
+            }}
+          >
+            Voltar para Login
+          </button>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="w-full max-w-md mx-auto p-4 sm:p-6">
-      <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
-        {/* Header */}
-        <div className="bg-gradient-to-br from-green-600 to-emerald-700 px-6 sm:px-8 pt-8 pb-6 text-center">
-          <McDuckLogo size={80} />
-          <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">
+    <div style={{
+      minHeight: '100vh',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      background: 'linear-gradient(135deg, #FFF8E1 0%, #FFECB3 50%, #FFE082 100%)',
+      padding: '20px'
+    }}>
+      <div style={{
+        width: '100%',
+        maxWidth: '400px',
+        background: '#FFFFFF',
+        borderRadius: '24px',
+        boxShadow: '0 20px 60px rgba(255, 193, 7, 0.3)',
+        overflow: 'hidden'
+      }}>
+        {/* Logo e Título */}
+        <div style={{
+          padding: '48px 32px 32px',
+          textAlign: 'center',
+          background: 'linear-gradient(180deg, #FFFFFF 0%, #FFF9C4 100%)'
+        }}>
+          <img 
+            src="/mcduck-icon.png" 
+            alt="McDuck" 
+            style={{
+              width: '100px',
+              height: '100px',
+              marginBottom: '24px',
+              filter: 'drop-shadow(0 4px 12px rgba(255, 193, 7, 0.4))'
+            }}
+          />
+          <h1 style={{
+            fontSize: '32px',
+            fontWeight: '700',
+            color: '#1A1A1A',
+            marginBottom: '8px',
+            letterSpacing: '-0.5px'
+          }}>
             Criar Conta
           </h1>
-          <p className="text-green-100 text-sm sm:text-base">
+          <p style={{
+            fontSize: '16px',
+            color: '#666666',
+            fontWeight: '400'
+          }}>
             Comece a gerenciar seus investimentos
           </p>
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="px-6 sm:px-8 py-6 space-y-5">
+        <form onSubmit={handleSubmit} style={{ padding: '32px' }}>
           {/* Email */}
-          <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
-              📧 Email
+          <div style={{ marginBottom: '20px' }}>
+            <label style={{
+              display: 'block',
+              fontSize: '15px',
+              fontWeight: '600',
+              color: '#333333',
+              marginBottom: '8px'
+            }}>
+              Email
             </label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all text-base"
               placeholder="seu@email.com"
               required
               disabled={loading}
+              style={{
+                width: '100%',
+                padding: '14px 16px',
+                fontSize: '16px',
+                border: '2px solid #E0E0E0',
+                borderRadius: '12px',
+                outline: 'none',
+                transition: 'all 0.2s',
+                backgroundColor: loading ? '#F5F5F5' : '#FFFFFF',
+                color: '#1A1A1A'
+              }}
+              onFocus={(e) => e.target.style.borderColor = '#FFC107'}
+              onBlur={(e) => e.target.style.borderColor = '#E0E0E0'}
             />
           </div>
 
-          {/* Password */}
-          <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
-              🔒 Senha
+          {/* Senha */}
+          <div style={{ marginBottom: '20px' }}>
+            <label style={{
+              display: 'block',
+              fontSize: '15px',
+              fontWeight: '600',
+              color: '#333333',
+              marginBottom: '8px'
+            }}>
+              Senha
             </label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all text-base"
               placeholder="••••••••"
               required
               disabled={loading}
               minLength={6}
+              style={{
+                width: '100%',
+                padding: '14px 16px',
+                fontSize: '16px',
+                border: '2px solid #E0E0E0',
+                borderRadius: '12px',
+                outline: 'none',
+                transition: 'all 0.2s',
+                backgroundColor: loading ? '#F5F5F5' : '#FFFFFF',
+                color: '#1A1A1A'
+              }}
+              onFocus={(e) => e.target.style.borderColor = '#FFC107'}
+              onBlur={(e) => e.target.style.borderColor = '#E0E0E0'}
             />
-            <p className="text-xs text-gray-500 mt-1.5">
+            <p style={{
+              fontSize: '13px',
+              color: '#999999',
+              marginTop: '6px',
+              marginBottom: 0
+            }}>
               Mínimo de 6 caracteres
             </p>
           </div>
 
-          {/* Confirm Password */}
-          <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
-              🔒 Confirmar Senha
+          {/* Confirmar Senha */}
+          <div style={{ marginBottom: '24px' }}>
+            <label style={{
+              display: 'block',
+              fontSize: '15px',
+              fontWeight: '600',
+              color: '#333333',
+              marginBottom: '8px'
+            }}>
+              Confirmar Senha
             </label>
             <input
               type="password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all text-base"
               placeholder="••••••••"
               required
               disabled={loading}
+              style={{
+                width: '100%',
+                padding: '14px 16px',
+                fontSize: '16px',
+                border: '2px solid #E0E0E0',
+                borderRadius: '12px',
+                outline: 'none',
+                transition: 'all 0.2s',
+                backgroundColor: loading ? '#F5F5F5' : '#FFFFFF',
+                color: '#1A1A1A'
+              }}
+              onFocus={(e) => e.target.style.borderColor = '#FFC107'}
+              onBlur={(e) => e.target.style.borderColor = '#E0E0E0'}
             />
           </div>
 
-          {/* Error */}
+          {/* Erro */}
           {error && (
-            <div className="bg-red-50 border-l-4 border-red-500 text-red-700 px-4 py-3 rounded-lg text-sm">
-              <span className="font-semibold">Erro:</span> {error}
+            <div style={{
+              padding: '14px',
+              marginBottom: '20px',
+              backgroundColor: '#FFEBEE',
+              border: '1px solid #FFCDD2',
+              borderRadius: '12px',
+              color: '#C62828',
+              fontSize: '14px',
+              fontWeight: '500'
+            }}>
+              {error}
             </div>
           )}
 
-          {/* Submit */}
+          {/* Botão Criar Conta */}
           <button
             type="submit"
-            className="w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white py-3.5 rounded-xl hover:from-green-700 hover:to-emerald-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed font-semibold text-base shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
             disabled={loading}
+            style={{
+              width: '100%',
+              padding: '16px',
+              fontSize: '17px',
+              fontWeight: '700',
+              color: '#FFFFFF',
+              background: loading 
+                ? 'linear-gradient(135deg, #BDBDBD 0%, #9E9E9E 100%)'
+                : 'linear-gradient(135deg, #FFB300 0%, #FF8F00 100%)',
+              border: 'none',
+              borderRadius: '12px',
+              cursor: loading ? 'not-allowed' : 'pointer',
+              boxShadow: loading ? 'none' : '0 8px 24px rgba(255, 143, 0, 0.4)',
+              transition: 'all 0.3s',
+              marginBottom: '20px'
+            }}
+            onMouseEnter={(e) => {
+              if (!loading) {
+                e.target.style.transform = 'translateY(-2px)';
+                e.target.style.boxShadow = '0 12px 32px rgba(255, 143, 0, 0.5)';
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (!loading) {
+                e.target.style.transform = 'translateY(0)';
+                e.target.style.boxShadow = '0 8px 24px rgba(255, 143, 0, 0.4)';
+              }
+            }}
           >
-            {loading ? (
-              <span className="flex items-center justify-center">
-                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-                Criando conta...
-              </span>
-            ) : (
-              '✨ Criar Conta'
-            )}
+            {loading ? 'Criando conta...' : 'Criar Conta'}
           </button>
-        </form>
 
-        {/* Switch to Login */}
-        <div className="px-6 sm:px-8 pb-6 text-center border-t border-gray-100 pt-6">
-          <p className="text-gray-600 text-sm">
-            Já tem uma conta?{' '}
+          {/* Fazer login */}
+          <div style={{ textAlign: 'center' }}>
+            <span style={{ color: '#666666', fontSize: '15px' }}>
+              Já tem uma conta?{' '}
+            </span>
             <button
+              type="button"
               onClick={onSwitchToLogin}
-              className="text-green-600 hover:text-green-700 font-semibold hover:underline"
               disabled={loading}
+              style={{
+                background: 'none',
+                border: 'none',
+                color: '#F57C00',
+                fontSize: '15px',
+                fontWeight: '700',
+                cursor: 'pointer',
+                textDecoration: 'underline'
+              }}
             >
               Fazer login
             </button>
+          </div>
+        </form>
+
+        {/* Footer */}
+        <div style={{
+          padding: '20px',
+          textAlign: 'center',
+          borderTop: '1px solid #F0F0F0',
+          background: '#FAFAFA'
+        }}>
+          <p style={{
+            fontSize: '13px',
+            color: '#999999',
+            margin: 0
+          }}>
+            🔒 Seus dados estão protegidos e criptografados
           </p>
         </div>
       </div>
-
-      {/* Footer */}
-      <p className="text-center text-gray-500 text-xs mt-6">
-        🔒 Seus dados estão protegidos e criptografados
-      </p>
     </div>
   );
 }
