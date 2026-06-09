@@ -3,6 +3,7 @@ import { assetClasses } from '../../data/portfolioData';
 import { formatCurrency, formatPercent } from '../../lib/formatters';
 import RebalanceSimulator from '../insights/RebalanceSimulator';
 import SnowballCalculator from '../insights/SnowballCalculator';
+import SmartDivestmentCalculator from '../insights/SmartDivestmentCalculator';
 
 /**
  * Componente de visualização de insights do dashboard
@@ -62,6 +63,9 @@ const InsightsViewUpdated = () => {
       
       {/* Calculadora Bola de Neve */}
       <SnowballCalculator />
+      
+      {/* Calculadora de Desinvestimento Inteligente */}
+      <SmartDivestmentCalculator />
       
       <div className="card">
         <div className="card-title">

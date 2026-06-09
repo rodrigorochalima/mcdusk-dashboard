@@ -5,6 +5,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 import EditAssetModal from './EditAssetModal';
 import BuyAssetModal from './BuyAssetModal';
 import SellAssetModal from './SellAssetModal';
+import StrategyLensesSection from './StrategyLensesSection';
 
 const AssetDetailModalComplete = ({ asset, onClose }) => {
   // Estado para controlar qual aba está ativa
@@ -225,109 +226,7 @@ const AssetDetailModalComplete = ({ asset, onClose }) => {
           </div>
         );
       case 'estrategias':
-        return (
-          <div className="section">
-            <h3 className="section-title">💼 Análise das Estratégias</h3>
-            
-            {/* Recomendação Geral */}
-            <div className="recommendation-section">
-              <h4 className="recommendation-title">Recomendação Geral</h4>
-              <div className="recommendation-container">
-                <div className="recommendation buy">COMPRAR</div>
-                <div className="recommendation-details">
-                  <p><strong>Média Ponderada:</strong> COMPRAR</p>
-                  <p><strong>Estratégia de Compra:</strong> Compre 70 cotas para gerar R$ 1,00/mês em dividendos.</p>
-                </div>
-              </div>
-            </div>
-            
-            {/* Warren Buffett */}
-            <div className="strategy-card buffett-card">
-              <div className="strategy-header">
-                <h4>Warren Buffett (Peso: 40%)</h4>
-                <span className="strategy-weight">Maior Peso</span>
-              </div>
-              <div className="strategy-timeframes">
-                <div className="timeframe-item">
-                  <span className="timeframe-label">1 Mês</span>
-                  <span className="timeframe-value buy">COMPRAR</span>
-                </div>
-                <div className="timeframe-item">
-                  <span className="timeframe-label">3 Meses</span>
-                  <span className="timeframe-value buy">COMPRAR</span>
-                </div>
-                <div className="timeframe-item">
-                  <span className="timeframe-label">6 Meses</span>
-                  <span className="timeframe-value buy">COMPRAR</span>
-                </div>
-              </div>
-              <p className="strategy-description">
-                COMPRAR: Warren é acionista do Bank of America, banco com vantagem competitiva
-              </p>
-            </div>
-            
-            {/* Diagrama do Cerrado */}
-            <div className="strategy-card cerrado-card">
-              <div className="strategy-header">
-                <h4>Diagrama do Cerrado (Peso: 30%)</h4>
-                <span className="strategy-weight">2º Peso</span>
-              </div>
-              <div className="strategy-timeframes">
-                <div className="timeframe-item">
-                  <span className="timeframe-label">1 Mês</span>
-                  <span className="timeframe-value buy">COMPRAR</span>
-                </div>
-                <div className="timeframe-item">
-                  <span className="timeframe-label">3 Meses</span>
-                  <span className="timeframe-value buy">COMPRAR</span>
-                </div>
-                <div className="timeframe-item">
-                  <span className="timeframe-label">6 Meses</span>
-                  <span className="timeframe-value buy">COMPRAR</span>
-                </div>
-              </div>
-              <p className="strategy-description">
-                COMPRAR: Banco sólido com bons fundamentos
-              </p>
-            </div>
-            
-            {/* Estratégia ARCA */}
-            <div className="strategy-card arca-card">
-              <div className="strategy-header">
-                <h4>Estratégia ARCA (Peso: 20%)</h4>
-                <span className="strategy-weight">3º Peso</span>
-              </div>
-              <div className="strategy-timeframes">
-                <div className="timeframe-item">
-                  <span className="timeframe-label">1 Mês</span>
-                  <span className="timeframe-value hold">MANTER</span>
-                </div>
-                <div className="timeframe-item">
-                  <span className="timeframe-label">3 Meses</span>
-                  <span className="timeframe-value hold">MANTER</span>
-                </div>
-                <div className="timeframe-item">
-                  <span className="timeframe-label">6 Meses</span>
-                  <span className="timeframe-value hold">MANTER</span>
-                </div>
-              </div>
-              <p className="strategy-description">
-                MANTER: Faz parte da cesta de Ativos Internacionais (25%)
-              </p>
-            </div>
-            
-            {/* Bola de Neve */}
-            <div className="strategy-card snowball-card">
-              <div className="strategy-header">
-                <h4>Bola de Neve (Informativo)</h4>
-                <span className="strategy-weight">Não computado</span>
-              </div>
-              <p className="strategy-description">
-                Estratégia focada em dividendos mensais para reinvestimento automático
-              </p>
-            </div>
-          </div>
-        );
+        return <StrategyLensesSection asset={asset} assetClassId={asset.assetClassId} />;
       case 'contexto':
         return (
           <div className="section">
